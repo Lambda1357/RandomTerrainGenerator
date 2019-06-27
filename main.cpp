@@ -1,8 +1,8 @@
-﻿// RandomTerrainGanarator.cpp : 응용 프로그램에 대한 진입점을 정의합니다.
+﻿// main.cpp : 응용 프로그램에 대한 진입점을 정의합니다.
 //
 
 #include "stdafx.h"
-#include "RandomTerrainGanarator.h"
+#include "main.h"
 
 #define MAX_LOADSTRING 100
 
@@ -137,6 +137,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;
+			case ID_TERRAIN_RESET:
+				//TODO : Reset Terrain Data
+
+				break;
+			case ID_FILE_SAVE:
+				//TODO : Save Terrain Data
+
+				break;
+			case ID_FILE_LOAD:
+				//TODO : Load Terrain Data
+
+				break;
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
