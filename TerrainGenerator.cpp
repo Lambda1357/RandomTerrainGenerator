@@ -16,6 +16,23 @@ void TerrainGenerator::SetSize(int x, int y)
 	SetMapScale(boundScale);
 }
 
+void TerrainGenerator::SetSeed(int seed)
+{
+	m_module.SetSeed(seed);
+}
+
+void TerrainGenerator::ExportToBmp(std::string str)
+{
+	writerBmp.SetDestFilename(str + "exportedMap.bmp");
+	writerBmp.WriteDestFile();
+}
+
+void TerrainGenerator::ExportToTer(std::string str)
+{
+	writerTer.SetDestFilename(str + "exportedMap.ter");
+	writerTer.WriteDestFile();
+}
+
 void TerrainGenerator::Initialize()
 {
 	m_heightMapBuilder.SetSourceModule(m_module);
@@ -38,14 +55,16 @@ void TerrainGenerator::Initialize()
 	m_renderer.SetLightContrast(3.0); // Triple the contrast
 	m_renderer.SetLightBrightness(2.0); // Double the brightness
 
-	writer.SetSourceImage(m_image);
+	writerWin.SetSourceImage(m_image);
+	writerBmp.SetSourceImage(m_image);
+	writerTer.SetSourceNoiseMap(m_heightMap);
 }
 
 void TerrainGenerator::Render(HDC hdc, POINT destPosition)
 {
 	Bake();
-	writer.SetDestPoint(destPosition);
-	writer.RenderToDC(hdc);
+	writerWin.SetDestPoint(destPosition);
+	writerWin.RenderToDC(hdc);
 }
 
 void TerrainGenerator::Bake()

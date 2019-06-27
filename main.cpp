@@ -1,7 +1,10 @@
 ﻿// main.cpp : 응용 프로그램에 대한 진입점을 정의합니다.
 //
 #include "stdafx.h"
+
 #include "main.h"
+#include <time.h>
+
 #include "TerrainGenerator.h"
 
 #define MAX_LOADSTRING 100
@@ -140,16 +143,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 DestroyWindow(hWnd);
                 break;
 			case ID_TERRAIN_RESET:
-				//TODO : Reset Terrain Data
-
+				genarator.SetSeed((int)time(nullptr));
+				InvalidateRect(hWnd, nullptr, true);
 				break;
-			case ID_FILE_SAVE:
+			case ID_EXPORT_BMP:
 				//TODO : Save Terrain Data
-
+				genarator.ExportToBmp("./");
+				MessageBox(hWnd, _T("Export to bmp is Complate!"), _T("Export"), MB_OK);
 				break;
-			case ID_FILE_LOAD:
-				//TODO : Load Terrain Data
 
+			case ID_EXPORT_TGA:
+				//TODO : Save Terrain Data
+				genarator.ExportToTer("./");
+				MessageBox(hWnd, _T("Export to ter is Complate!"), _T("Export"), MB_OK);
 				break;
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
@@ -159,6 +165,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
+
             HDC hdc = BeginPaint(hWnd, &ps);
 			genarator.Render(hdc);
             EndPaint(hWnd, &ps);
